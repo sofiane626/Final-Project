@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from front.views import *
+from user.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +25,6 @@ urlpatterns = [
     path('product/', product, name='product'),
     path('blog/', blog, name='blog'),
     path('contact/', contact, name='contact'),
-    path('login/', login, name='login'),
-    path('login/signup/', signup, name='signup'),
+    path('connexion/', connexion, name='login'),
+    path('inscription/', inscription, name='signup'),
 ]

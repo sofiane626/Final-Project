@@ -21,21 +21,22 @@
             <div class="container">
                 <div class="signup-content">
                     <h2>Create an Account</h2>
-
-                    <form class="signup-form">
+                    
+                    <form method='POST' class="signup-form">
+                        {% csrf_token %}
                         <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control" placeholder="Enter your name" id="fname" name="fname">
+                            <label>Username</label>
+                            <input type="text" class="form-control" placeholder="Enter your Username" id="fname" name="username">
                         </div>
-
+                        
                         <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control" placeholder="Enter your name" id="lname" name="lname">
+                            <label>URL Image</label>
+                            <input type="text" class="form-control" placeholder="Enter your name" id="lname" name="img_url">
                         </div>
 
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" placeholder="Enter your name" id="name" name="name">
+                            <input type="email" class="form-control" placeholder="Enter your name" id="name" name="email">
                         </div>
 
                         <div class="form-group">
@@ -45,7 +46,7 @@
 
                         <button type="submit" class="default-btn">Signup</button>
 
-                        <a href="index.html" class="return-store">or Return to Store</a>
+                        <a href={% url 'home' %} class="return-store">or Return to Store</a>
                     </form>
                 </div>
             </div>
