@@ -68,6 +68,7 @@
             </div>
         </div>
         <!-- End Top Header Area -->
+        
 
         <!-- Start Navbar Area -->
         <div class="navbar-area">
@@ -75,7 +76,7 @@
                 <div class="container">
                     <div class="xton-responsive-menu">
                         <div class="logo">
-                            <a href={% static "index.html">
+                            <a href= {% url 'backoffice' %} >
                                 <img src={% static "assets/img/logo.png" %} class="main-logo" alt="logo">
                                 <img src={% static "assets/img/white-logo.png" %} class="white-logo" alt="logo">
                             </a>
@@ -87,11 +88,11 @@
             <div class="xton-nav">
                 <div class="container">
                     <nav class="navbar navbar-expand-md navbar-light">
-                        <a class="navbar-brand" href={% static "index.html">
+                        <a class="navbar-brand" href={% url 'backoffice' %}>
                             <img src={% static "assets/img/logo.png" %} class="main-logo" alt="logo">
                             <img src={% static "assets/img/white-logo.png" %} class="white-logo" alt="logo">
                         </a>
-
+                        
                         <div class="collapse navbar-collapse mean-menu">
                             <ul class="navbar-nav">
                                 <li class="nav-item"><a href= {% url 'home' %} class="nav-link active">Home</a></li>
@@ -169,8 +170,9 @@
             </div>
         </div>
         <!-- End Header Area -->
-
+        
         {% block content %} {% endblock content %}
+        {% block back %}{% endblock back %}
 
         <!-- Start Footer Area -->
         <footer class="footer-area">

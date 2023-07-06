@@ -1,0 +1,41 @@
+{% load bootstrap5 %} {% bootstrap_css %}{% bootstrap_javascript %}
+
+<div class="container p-5">
+  <h1>Liste des utilisateurs</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Boucle pour afficher chaque utilisateur -->
+      {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td class="d-flex gap-5">
+          <form action="/user/destroy/{{ user.id }}" method="POST">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="btn btn-outline-danger"
+              style="width: 80px; height: 40px"
+            >
+              Delete
+            </button>
+          </form>
+          <a
+            href="/user/edit/{{ user.id }}"
+            class="btn btn-outline-primary"
+            style="width: 80px; height: 40px"
+            >Edit</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

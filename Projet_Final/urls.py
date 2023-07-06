@@ -29,4 +29,7 @@ urlpatterns = [
     path('inscription/', inscription, name='signup'),
     path('logout/', deco ),
     path('checkout/', checkout, name='checkout'),
+    path('backoffice/', backoffice, name='backoffice'),
+    path('user/destroy/<int:id>', destroy_User),
+    path('user/edit/<int:id>', updateUser),
 ]

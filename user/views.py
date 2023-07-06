@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.hashers import make_password
 from .models import *
+from .forms import *
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.contrib.auth.forms import PasswordChangeForm
@@ -46,3 +47,19 @@ def deco(request):
 #     else:
 #         form = PasswordChangeForm(request.user)
 #     return render(request, 'lerecap/coco/passwordchange.html', {'form': form})
+
+def updateUser(request,id):
+    edit = User.objects.get(id=id)
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=edit)
+        if form.is_valid():
+            form.save()
+            return redirect('backoffice')
+    else:
+        form = UserForm(instance=edit)
+    return render(request, 'Projet_Final/back/back_edit.html', {'form': form})
+
+def destroy_User(request, id):
+    destroy = User(id)
+    destroy.delete()
+    return redirect('backoffice')

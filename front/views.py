@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from user.models import User
 
 # Create your views here.
 
@@ -16,4 +17,8 @@ def contact(request):
 
 def checkout(request):
     return render(request, 'Projet_Final/front/checkout.html')
+
+def backoffice(request):
+    users = User.objects.all()
+    return render(request, 'Projet_Final/back/backoffice.html', {'users' : users,})
 
