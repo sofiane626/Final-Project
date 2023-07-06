@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from user.models import User
 from product.models import Product
+from blog.models import Article
 
 # Create your views here.
 
@@ -27,3 +28,7 @@ def backoffice(request):
 def back_product(request):
     products = Product.objects.all()
     return render(request, 'Projet_Final/back/back_product.html', {'products' : products,})
+
+def back_article(request):
+    articles = Article.objects.all()
+    return render(request, 'Projet_Final/back/back_blog.html', {'articles' : articles,})

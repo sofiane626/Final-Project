@@ -19,6 +19,7 @@ from django.urls import path
 from front.views import *
 from user.views import *
 from product.views import *
+from blog.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,7 +35,11 @@ urlpatterns = [
     path('user/destroy/<int:id>', destroy_User),
     path('user/edit/<int:id>', updateUser),
     path('back_product/', back_product, name='back_product'),
-    path('product/edit/<int:id>', updateUser),
-    path('product/destroy/<int:id>', destroy_User),
+    path('product/edit/<int:id>', updateProduct),
+    path('product/destroy/<int:id>', destroy_Product),
     path('create/product/', createProduct, name='create_Product'),
+    path('back_article/', back_article, name='back_article'),
+    path('article/edit/<int:id>', updateArticle),
+    path('article/destroy/<int:id>', destroy_Article),
+    path('create/article/', createArticle, name='create_article'),
 ]
