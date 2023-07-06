@@ -43,7 +43,11 @@
                         <ul class="header-top-menu">
                             <li><a href= "login.html"><i class='bx bxs-user'></i> My Account</a></li>
                             <li><a href= "#" data-bs-toggle="modal" data-bs-target="#shoppingWishlistModal"><i class='bx bx-heart'></i> Wishlist</a></li>
-                            <li><a href= {% url 'login' %}><i class='bx bx-log-in'></i> Login</a></li>
+                            {% if not user.is_authenticated %}
+                                <li><a href="{% url 'login' %}"><i class='bx bx-log-in'></i> Login</a></li>
+                            {% else %}
+                                <li><a href="/logout/"><i class='bx bx-log-out'></i> Logout</a></li>
+                            {% endif %}
                         </ul>
 
                         <ul class="header-top-others-option">

@@ -21,19 +21,19 @@ def inscription(request):
         login(request, user)
     return render(request, 'Projet_Final/front/signup.html')
 
-# def connexion(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('home')
-#     return render(request, 'lerecap/coco/connexion.html')
+def connexion(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+    return render(request, 'Projet_Final/front/login.html')
 
-# def deco(request):
-#     logout(request)
-#     return redirect('home')
+def deco(request):
+    logout(request)
+    return redirect('home')
 
 # def passwordchange(request):
 #     if request.method == 'POST':

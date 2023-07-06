@@ -27,4 +27,6 @@ urlpatterns = [
     path('contact/', contact, name='contact'),
     path('connexion/', connexion, name='login'),
     path('inscription/', inscription, name='signup'),
+    path('logout/', deco ),
+    path('checkout/', checkout, name='checkout'),
 ]

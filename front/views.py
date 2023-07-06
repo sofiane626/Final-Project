@@ -14,6 +14,6 @@ def blog(request):
 def contact(request):
     return render(request, 'Projet_Final/front/contact.html')
 
-def connexion(request):
-    return render(request, 'Projet_Final/front/login.html')
+def checkout(request):
+    return render(request, 'Projet_Final/front/checkout.html')
 
