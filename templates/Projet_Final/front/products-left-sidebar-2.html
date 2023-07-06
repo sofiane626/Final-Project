@@ -121,12 +121,13 @@
                     </div>
 
                     <div id="products-collections-filter" class="row">
+                        {% for product in products %}
                         <div class="col-lg-6 col-md-6 col-sm-6 products-col-item">
                             <div class="products-box">
                                 <div class="products-image">
                                     <a href="#">
-                                        <img src={% static "assets/img/products/img13.jpg" %} class="main-image" alt="image">
-                                        <img src={% static "assets/img/products/img-hover13.jpg" %} class="hover-image" alt="image">
+                                        <img src={{ product.img1 }} class="main-image" alt="image">
+                                        <img src={{ product.img2 }} class="hover-image" alt="image">
                                     </a>
 
                                     <div class="products-button">
@@ -186,7 +187,7 @@
                                 </span>
                             </div>
                         </div>
-
+                        {% endfor %}
                         <div class="col-lg-6 col-md-6 col-sm-6 products-col-item">
                             <div class="products-box">
                                 <div class="products-image">

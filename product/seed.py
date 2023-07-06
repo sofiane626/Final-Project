@@ -19,7 +19,7 @@ def runProduct():
     
     
     #----------------------------------------------------------------
-
+    
     products = [
         {
             'img1': 'https://static.zara.net/photos///2023/I/0/2/p/8211/320/250/2/w/1126/8211320250_6_1_1.jpg?ts=1683813219804', 
@@ -34,6 +34,20 @@ def runProduct():
             'tailleM':2,
             'tailleL':2,
             'tailleXL':2,
+        },
+        {
+            'img1': 'https://static.zara.net/photos///2023/I/0/2/p/3277/306/800/2/w/750/3277306800_6_1_1.jpg?ts=1685354035104', 
+            'img2': 'https://static.zara.net/photos///2023/I/0/2/p/3277/306/800/2/w/750/3277306800_6_2_1.jpg?ts=1685354034959', 
+            'img3': 'https://static.zara.net/photos///2023/I/0/2/p/3277/306/800/2/w/750/3277306800_6_3_1.jpg?ts=1685354040445',
+            'description' : 'Chemise en tissu à texture pour un entretien facile au quotidien.',
+            'name': 'CHEMISE À TEXTURE ENTRETIEN FACILE',
+            'category': Category.objects.all()[0],
+            'price': 46,
+            'promo': 0,
+            'tailleS':4,
+            'tailleM':8,
+            'tailleL':6,
+            'tailleXL':1,
         },
     ]
     
