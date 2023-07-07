@@ -119,13 +119,13 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div id="products-collections-filter" class="row">
                         {% for product in products %}
                         <div class="col-lg-6 col-md-6 col-sm-6 products-col-item">
                             <div class="products-box">
                                 <div class="products-image">
-                                    <a href="#">
+                                    <a href={% url 'detail_Product' product.id %}>
                                         <img src={{ product.img1 }} class="main-image" alt="image">
                                         <img src={{ product.img2 }} class="hover-image" alt="image">
                                     </a>
@@ -151,7 +151,7 @@
                                             <li>
                                                 <div class="quick-view-btn">
                                                     <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#productsQuickView">
+                                                        data-bs-target="#productsQuickView{{ product.id }}">
                                                         <i class='bx bx-search-alt'></i>
                                                         <span class="tooltip-label">Quick View</span>
                                                     </a>
@@ -162,7 +162,7 @@
 
                                     <div class="new-tag">New!</div>
                                 </div>
-
+                                
                                 <div class="products-content">
                                     <span class="category">T-Shirt</span>
                                     <h3><a href="#">Long Sleeve Leopard T-Shirt</a></h3>
@@ -179,7 +179,7 @@
                                     </div>
                                     <a href="#" class="add-to-cart">Add to Cart</a>
                                 </div>
-
+                                
                                 <span class="products-discount">
                                     <span>
                                         20% OFF
@@ -983,9 +983,10 @@
         </div>
     </div>
     <!-- End Sidebar Modal -->
-
+    
+    {% for product in products %}
     <!-- Start QuickView Modal Area -->
-    <div class="modal fade productsQuickView" id="productsQuickView" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade productsQuickView" id="productsQuickView{{ product.id }}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -995,17 +996,16 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-6">
                         <div class="products-image">
-                            <img src={% static "assets/img/quick-view-img.jpg" %} alt="image">
+                            <img src={{ product.img3 }} alt="image">
                         </div>
                     </div>
 
                     <div class="col-lg-6 col-md-6">
                         <div class="products-content">
-                            <h3><a href="#">Long Sleeve Leopard T-Shirt</a></h3>
+                            <h3><a href="#">{{ product.name }}</a></h3>
 
                             <div class="price">
-                                <span class="old-price">$210.00</span>
-                                <span class="new-price">$200.00</span>
+                                <span class="new-price">€ {{ product.price }}</span>
                             </div>
 
                             <div class="products-review">
@@ -1022,25 +1022,9 @@
                             <ul class="products-info">
                                 <li><span>Vendor:</span> <a href="#">Lereve</a></li>
                                 <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li>
-                                <li><span>Products Type:</span> <a href="#">T-Shirt</a></li>
+                                <li><span>Products Type:</span> <a href="#">{{ product.category }}</a></li>
                             </ul>
-
-                            <div class="products-color-switch">
-                                <h4>Color:</h4>
-
-                                <ul>
-                                    <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Black"
-                                            class="color-black"></a></li>
-                                    <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="White"
-                                            class="color-white"></a></li>
-                                    <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Green"
-                                            class="color-green"></a></li>
-                                    <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Yellow Green"
-                                            class="color-yellowgreen"></a></li>
-                                    <li><a href="#" data-bs-toggle="tooltip" data-placement="top" title="Teal"
-                                            class="color-teal"></a></li>
-                                </ul>
-                            </div>
+                            
 
                             <div class="products-size-wrapper">
                                 <h4>Size:</h4>
@@ -1072,6 +1056,7 @@
         </div>
     </div>
     <!-- End QuickView Modal Area -->
+    {% endfor %}
 
     <!-- Start Shopping Cart Modal -->
     <div class="modal right fade shoppingCartModal" id="shoppingCartModal" tabindex="-1" role="dialog">

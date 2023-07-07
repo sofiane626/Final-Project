@@ -19,6 +19,13 @@ def inscription(request):
         email = request.POST['email']
         user = User(username=username, password=make_password(password), email=email, img_url=img_url)
         user.save()
+        # Info du mail 
+        subject = 'Bienvenue sur notre site'
+        message = 'Merci de vous être inscrit à notre site.'
+        from_email = '55975@etu.he2b.be'           
+        to_email = user.email
+        # Envoi du mail
+        send_mail(subject, message, from_email, [to_email])
         login(request, user)
     return render(request, 'Projet_Final/front/signup.html')
 
