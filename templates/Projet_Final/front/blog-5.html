@@ -20,27 +20,32 @@
     <div class="row">
       <div class="col-lg-8 col-md-12">
         <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="single-blog-post">
-              <div class="post-image">
-                <a href="#">
-                  <img src={% static "assets/img/blog/img1.jpg" %} alt="image">
-                </a>
-                <div class="date">
-                  <span>January 29, 2021</span>
+          {% for article in articles %}
+                <div class="col-lg-6 col-md-6">
+                    <div class="single-blog-post">
+                        <div class="post-image">
+                            <a href="#">
+                                <img src="{{ article.img }}" alt="image">
+                            </a>
+                            <div class="date">
+                                <span>January 29, 2021</span>
+                            </div>
+                        </div>
+
+                        <div class="post-content">
+                            <span class="category">{{ article.category.category }}</span>
+                            <h3>
+                                <a href="#">{{ article.title }}</a>
+                            </h3>
+                            <a href={% url 'detail_article' article.id %} class="details-btn">Read Story</a>
+                        </div>
+                    </div>
                 </div>
-              </div>
-
-              <div class="post-content">
-                <span class="category">Ideas</span>
-                <h3>
-                  <a href="#">The #1 eCommerce blog to grow your business</a>
-                </h3>
-                <a href="#" class="details-btn">Read Story</a>
-              </div>
-            </div>
-          </div>
-
+            {% endfor %}
+          
+          
+          
+          
           <div class="col-lg-6 col-md-6">
             <div class="single-blog-post">
               <div class="post-image">
@@ -209,89 +214,56 @@
           </div>
         </div>
       </div>
-
+      
       <div class="col-lg-4 col-md-12">
         <aside class="widget-area">
           <section class="widget widget_search">
-            <form class="search-form">
-              <label>
-                <span class="screen-reader-text">Search for:</span>
-                <input
-                  type="search"
-                  class="search-field"
-                  placeholder="Search..."
-                />
-              </label>
-              <button type="submit"><i class="bx bx-search-alt"></i></button>
-            </form>
+              <form class="search-form" action="{% url 'blog' %}" method="GET">
+                  <label>
+                      <span class="screen-reader-text">Search for:</span>
+                      <input type="search" class="search-field" placeholder="Search..." name="q" value="{{ request.GET.q }}">
+                  </label>
+                  <button type="submit"><i class="bx bx-search-alt"></i></button>
+              </form>
           </section>
-
+          
+          
           <section class="widget widget_xton_posts_thumb">
-            <h3 class="widget-title">Popular Posts</h3>
+              <h3 class="widget-title">Popular Posts</h3>
+              
+              {% for article in popular_articles %}
+              <article class="item">
+                  <a href="#" class="thumb">
+                      <span class="fullimage cover" role="img" style="background-image: url('{{ article.img }}');"></span>
+                  </a>
+                  <div class="info">
+                      <span>{{ article.created_at }}</span>
+                      <h4 class="title usmall">
+                          <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                      </h4>
+                  </div>
 
-            <article class="item">
-              <a href="#" class="thumb">
-                <span class="fullimage cover bg1" role="img"></span>
-              </a>
-              <div class="info">
-                <span>June 10, 2021</span>
-                <h4 class="title usmall">
-                  <a href="#">Top ecommerce conferences in 2021</a>
-                </h4>
-              </div>
-
-              <div class="clear"></div>
-            </article>
-
-            <article class="item">
-              <a href="#" class="thumb">
-                <span class="fullimage cover bg2" role="img"></span>
-              </a>
-              <div class="info">
-                <span>June 21, 2021</span>
-                <h4 class="title usmall">
-                  <a href="#">Introducing the 2021 bigCommerce partner</a>
-                </h4>
-              </div>
-
-              <div class="clear"></div>
-            </article>
-
-            <article class="item">
-              <a href="#" class="thumb">
-                <span class="fullimage cover bg3" role="img"></span>
-              </a>
-              <div class="info">
-                <span>June 30, 2021</span>
-                <h4 class="title usmall">
-                  <a href="#">Best platforms for selling your products</a>
-                </h4>
-              </div>
-
-              <div class="clear"></div>
-            </article>
+                  <div class="clear"></div>
+              </article>
+              {% empty %}
+              <p>No popular articles found.</p>
+              {% endfor %}
           </section>
+          
+          
 
           <section class="widget widget_categories">
-            <h3 class="widget-title">Categories</h3>
-
-            <ul>
-              <li>
-                <a href="#">Design <span class="post-count">(03)</span></a>
-              </li>
-              <li>
-                <a href="#">Lifestyle <span class="post-count">(05)</span></a>
-              </li>
-              <li>
-                <a href="#">Script <span class="post-count">(10)</span></a>
-              </li>
-              <li>
-                <a href="#">Device <span class="post-count">(08)</span></a>
-              </li>
-              <li>
-                <a href="#">Tips <span class="post-count">(01)</span></a>
-              </li>
-            </ul>
+              <h3 class="widget-title">Categories</h3>
+              <ul>
+                  <li>
+                      <a href="?category_id=tous">Tous <span class="post-count">({{ articles.count }})</span></a>
+                  </li>
+                  {% for category in categories %}
+                  <li>
+                      <a href="?category_id={{ category.id }}">{{ category.category }} <span class="post-count">({{ category.article_set.count }})</span></a>
+                  </li>
+                  {% endfor %}
+              </ul>
           </section>
 
           <section class="widget widget_tag_cloud">

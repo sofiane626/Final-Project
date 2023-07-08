@@ -40,7 +40,7 @@ urlpatterns = [
     path('product/edit/<int:id>', updateProduct),
     path('product/destroy/<int:id>', destroy_Product),
     path('create/product/', createProduct, name='create_Product'),
-    path('equipe/<int:id>', readProduct, name='detail_Product'),
+    path('product/<int:id>', readProduct, name='detail_Product'),
     path('back_article/', back_article, name='back_article'),
     path('article/edit/<int:id>', updateArticle),
     path('article/destroy/<int:id>', destroy_Article),
@@ -49,4 +49,6 @@ urlpatterns = [
     path('contact/edit/<int:id>', updateContact),
     path('contact/destroy/<int:id>', destroy_Contact),
     path('back_contact/', back_contact, name='back_contact'),
+    path('comment/create2/<int:id>/', comment_create2, name='comment_create2'),
+    path('article/<int:id>', readArticle, name='detail_article'),
 ]
