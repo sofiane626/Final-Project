@@ -2,11 +2,13 @@ from django.shortcuts import render
 from user.models import User
 from product.models import Product, Category
 from blog.models import Article
+from contact.models import Contact
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'Projet_Final/front/home.html')
+    contacts = Contact.objects.all()
+    return render(request, 'Projet_Final/front/home.html', {'contacts' : contacts})
 
 def product(request, category_id=None):
     products = Product.objects.all()
@@ -30,7 +32,8 @@ def blog(request):
     return render(request, 'Projet_Final/front/blog-5.html')
 
 def contact(request):
-    return render(request, 'Projet_Final/front/contact.html')
+    contacts = Contact.objects.all()
+    return render(request, 'Projet_Final/front/contact.html', {'contacts' : contacts})
 
 def checkout(request):
     return render(request, 'Projet_Final/front/checkout.html')
@@ -46,3 +49,7 @@ def back_product(request):
 def back_article(request):
     articles = Article.objects.all()
     return render(request, 'Projet_Final/back/back_blog.html', {'articles' : articles,})
+
+def back_contact(request):
+    contacts = Contact.objects.all()
+    return render(request, 'Projet_Final/back/back_contact.html', {'contacts' : contacts})

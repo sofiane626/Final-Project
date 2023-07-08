@@ -3,7 +3,7 @@ from .models import Category, Product
 
 def runProduct():
     seeder = Seed.seeder()
-
+    
     categories = [
         {'value': 'Chemises'},
         {'value': 'T-Shirts'},

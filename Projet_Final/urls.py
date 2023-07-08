@@ -20,6 +20,7 @@ from front.views import *
 from user.views import *
 from product.views import *
 from blog.views import *
+from contact.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,4 +46,7 @@ urlpatterns = [
     path('article/destroy/<int:id>', destroy_Article),
     path('create/article/', createArticle, name='create_article'),
     path('comment/create/<int:id>/', comment_create, name='comment_create'),
+    path('contact/edit/<int:id>', updateContact),
+    path('contact/destroy/<int:id>', destroy_Contact),
+    path('back_contact/', back_contact, name='back_contact'),
 ]
