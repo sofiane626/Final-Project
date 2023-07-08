@@ -22,20 +22,18 @@
             <div class="row">
                 <div class="col-lg-4 col-md-12">
                     <div class="woocommerce-widget-area">
-
+                        
                         <div class="woocommerce-widget collections-list-widget">
                             <h3 class="woocommerce-widget-title">Collections</h3>
-
+                            
                             <ul class="collections-list-row">
-                                <li><a href="#">Men's</a></li>
-                                <li class="active"><a href="#" class="active">Women’s</a></li>
-                                <li><a href="#">Clothing</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Accessories</a></li>
-                                <li><a href="#">Uncategorized</a></li>
+                                <li{% if not active_category %} class="active"{% endif %}><a href="{% url 'product' %}">All</a></li>
+                                {% for category in categories %}
+                                <li{% if category == active_category %} class="active"{% endif %}><a href="{% url 'product_category' category.id %}">{{ category.value }}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
-
+                        
                         <div class="woocommerce-widget price-list-widget">
                             <h3 class="woocommerce-widget-title">Price</h3>
 
@@ -44,7 +42,7 @@
                                     name="filter_by_price" data-step="10">
                             </div>
                         </div>
-
+                        
                         <div class="woocommerce-widget size-list-widget">
                             <h3 class="woocommerce-widget-title">Size</h3>
 
@@ -164,18 +162,10 @@
                                 </div>
                                 
                                 <div class="products-content">
-                                    <span class="category">T-Shirt</span>
-                                    <h3><a href="#">Long Sleeve Leopard T-Shirt</a></h3>
-                                    <div class="star-rating">
-                                        <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star'></i>
-                                        <i class='bx bxs-star'></i>
-                                    </div>
+                                    <span class="category">{{ product.category }}</span>
+                                    <h3><a href="#">{{ product.name }}</a></h3>
                                     <div class="price">
-                                        <span class="old-price">$321</span>
-                                        <span class="new-price">$250</span>
+                                        <span class="new-price">€ {{ product.price }}</span>
                                     </div>
                                     <a href="#" class="add-to-cart">Add to Cart</a>
                                 </div>

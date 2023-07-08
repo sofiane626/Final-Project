@@ -24,7 +24,8 @@ from blog.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
-    path('product/', product, name='product'),
+    path('products/', product, name='product'),  # Vue pour afficher tous les produits
+    path('products/<int:category_id>/', product, name='product_category'),  # Vue pour filtrer les produits par catégorie
     path('blog/', blog, name='blog'),
     path('contact/', contact, name='contact'),
     path('connexion/', connexion, name='login'),
@@ -43,4 +44,5 @@ urlpatterns = [
     path('article/edit/<int:id>', updateArticle),
     path('article/destroy/<int:id>', destroy_Article),
     path('create/article/', createArticle, name='create_article'),
+    path('comment/create/<int:id>/', comment_create, name='comment_create'),
 ]
