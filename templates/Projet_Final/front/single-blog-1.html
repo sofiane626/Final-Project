@@ -85,7 +85,7 @@
                                                 <h4>Chris Orwig</h4>
                                                 <span class="d-block">Photographer, Author, Writer</span>
                                             </div>
-
+                                            
                                             <div class="author-profile-raque-profile">
                                                 <a href="#" class="d-inline-block">View profile on Xton</a>
                                             </div>
@@ -120,7 +120,7 @@
                                                         </a>
                                                     </div>
                                                 </footer>
-
+                                                
                                                 <div class="comment-content">
                                                     <p>{{ note.text }}</p>
                                                 </div>
@@ -189,7 +189,7 @@
                                 
                                 <div class="comment-respond">
                                     <h3 class="comment-reply-title">Leave a Reply</h3>
-
+                                    
                                     <form class="comment-form" method="POST" action="{% url 'comment_create2' show.id %}">
                                         {% csrf_token %}
                                             {% if not request.user.is_authenticated %}

@@ -4,12 +4,16 @@ from product.models import Product, Category
 from blog.models import Article, CategoryArticle
 from contact.models import Contact
 from django.db.models import Count
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 def home(request):
     contacts = Contact.objects.all()
-    return render(request, 'Projet_Final/front/home.html', {'contacts' : contacts})
+    products = Product.objects.order_by('-id')[:6]
+    popular_products = Product.objects.annotate(comment_count=Count('note')).order_by('-comment_count')[:6]
+    latest_articles = Article.objects.all().order_by('-id')[:3]
+    return render(request, 'Projet_Final/front/home.html', {'contacts' : contacts, 'products': products, 'popular_products': popular_products, 'latest_articles': latest_articles})
 
 def product(request, category_id=None):
     products = Product.objects.all()
@@ -22,11 +26,16 @@ def product(request, category_id=None):
     
     categories = Category.objects.all()
     
+    paginator = Paginator(products, 12)  # Spécifiez le nombre de produits par page (ici, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     return render(request, 'Projet_Final/front/products-left-sidebar-2.html', {
-        'products': products,
+        'products': page_obj,
         'categories': categories,
         'active_category': active_category
     })
+
 
 
 def blog(request):
