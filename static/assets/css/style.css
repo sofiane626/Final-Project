@@ -2391,15 +2391,15 @@ Main Banner CSS
 }
 
 .banner-bg1 {
-  background-image: url(../../assets/img/main-banner1.jpg);
+  background-image: url(../../assets/img/bg1.jpg);
 }
 
 .banner-bg2 {
-  background-image: url(../../assets/img/main-banner2.jpg);
+  background-image: url(../../assets/img/bg2.jpg);
 }
 
 .banner-bg3 {
-  background-image: url(../../assets/img/main-banner3.jpg);
+  background-image: url(../../assets/img/bg3.jpg);
 }
 
 .banner-bg4 {
@@ -6332,7 +6332,7 @@ Offer CSS
 }
 
 .offer-area.bg-image1 {
-  background-image: url(../../assets/img/offer-bg.jpg);
+  background-image: url(../../assets/img/bg4.jpg);
 }
 
 .offer-area.bg-image2 {
