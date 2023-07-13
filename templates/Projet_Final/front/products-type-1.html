@@ -15,7 +15,7 @@
             </div>
         </div>
         <!-- End Page Title -->
-
+        
         <!-- Start Product Details Area -->
         <section class="product-details-area pt-100 pb-70">
             <div class="container">
@@ -27,7 +27,7 @@
                                 <li><img src={{ show.img2 }} alt="image"></li>
                                 <li><img src={{ show.img3 }} alt="image"></li>
                             </ul>
-
+                            
                             <div class="slick-thumbs">
                                 <ul>
                                     <li><img src={{ show.img1 }} alt="image"></li>
@@ -37,15 +37,15 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="col-lg-7 col-md-12">
                         <div class="products-details-desc">
                             <h3>{{ show.name }}</h3>
-
+                            
                             <div class="price">
                                 <span class="new-price">€ {{ show.price }}</span>
                             </div>
-
+                            
                             <div class="products-review">
                                 <div class="rating">
                                     <i class='bx bx-star'></i>
@@ -56,42 +56,39 @@
                                 </div>
                                 <a href="#" class="rating-count">3 reviews</a>
                             </div>
-
+                            
                             <ul class="products-info">
-                                <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li>
+                                <li><span>Availability:</span> <a href="#">In stock (<span id="stock"></span> items)</a></li>
                                 <li><span>Products Type:</span> <a href="#">T-Shirt</a></li>
                             </ul>
-
+                            
                             <div class="products-size-wrapper">
                                 <span>Size:</span>
-
                                 <ul>
-                                    <li><a href="#">XS</a></li>
-                                    <li class="active"><a href="#">S</a></li>
-                                    <li><a href="#">M</a></li>
-                                    <li><a href="#">XL</a></li>
-                                    <li><a href="#">XXL</a></li>
+                                    <li class="size-option" data-size="S" data-stock="{{ stock.S }}"><a href="#">S</a></li>
+                                    <li class="size-option" data-size="M" data-stock="{{ stock.M }}"><a href="#">M</a></li>
+                                    <li class="size-option" data-size="L" data-stock="{{ stock.L }}"><a href="#">L</a></li>
+                                    <li class="size-option" data-size="XL" data-stock="{{ stock.XL }}"><a href="#">XL</a></li>
                                 </ul>
                             </div>
-
+                            
                             <div class="products-info-btn">
                                 <a href={% url 'contact' %}><i class='bx bx-envelope'></i> Ask about this products</a>
                             </div>
-
+                            
                             <div class="products-add-to-cart">
                                 <div class="input-counter">
-                                    <span class="minus-btn"><i class='bx bx-minus'></i></span>
-                                    <input type="text" value="1">
-                                    <span class="plus-btn"><i class='bx bx-plus'></i></span>
+                                    <span class="minus-btn" id="minus-btn"><i class='bx bx-minus'></i></span>
+                                    <input type="text" id="quantity-input" value="1">
+                                    <span class="plus-btn" id="plus-btn"><i class='bx bx-plus'></i></span>
                                 </div>
-
                                 <button type="submit" class="default-btn"><i class="fas fa-cart-plus"></i> Add to Cart</button>
                             </div>
-
+                            
                             <div class="wishlist-compare-btn">
                                 <a href="#" class="optional-btn"><i class='bx bx-heart'></i> Add to Wishlist</a>
                             </div>
-
+                            
                             <div class="buy-checkbox-btn">
                                 <div class="item">
                                     <input class="inp-cbx" id="cbx" type="checkbox">
@@ -104,7 +101,7 @@
                                         <span>I agree with the terms and conditions</span>
                                     </label>
                                 </div>
-
+                                
                                 <div class="item">
                                     <a href="#" class="default-btn">Buy it now!</a>
                                 </div>
@@ -112,6 +109,42 @@
                         </div>
                     </div>
                 </div>
+                
+                <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Récupérer toutes les options de taille
+                    var sizeOptions = document.getElementsByClassName("size-option");
+                    
+                    // Récupérer le champ du stock
+                    var stockField = document.getElementById("stock");
+
+                    // Gérer le clic sur les options de taille
+                    for (var i = 0; i < sizeOptions.length; i++) {
+                        sizeOptions[i].addEventListener("click", function(e) {
+                            e.preventDefault();
+
+                            // Retirer la classe "active" de toutes les options de taille
+                            for (var j = 0; j < sizeOptions.length; j++) {
+                                sizeOptions[j].classList.remove("active");
+                            }
+
+                            // Ajouter la classe "active" à l'option de taille sélectionnée
+                            this.classList.add("active");
+
+                            // Récupérer la valeur de la taille sélectionnée
+                            var selectedSize = this.getAttribute("data-size");
+                            
+                            // Récupérer le stock pour la taille sélectionnée depuis l'attribut "data-stock"
+                            var stock = this.getAttribute("data-stock");
+                            var quantite_input = document.getElementById('quantity-input')
+                            quantite_input.setAttribute('value', 1)
+                            quantite_input.setAttribute('max', stock)
+                            // Mettre à jour le champ du stock avec la valeur récupérée
+                            stockField.textContent = stock;
+                        });
+                    }
+                });
+                </script>
 
                 <div class="tab products-details-tab">
                     <ul class="tabs">

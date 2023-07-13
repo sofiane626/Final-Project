@@ -32,9 +32,22 @@ def createProduct(request):
     return render(request, 'Projet_Final/back/back_edit.html', {"form": form})
 
 def readProduct(request, id):
-    notes = Note.objects.all().filter(product = id)
+    notes = Note.objects.all().filter(product=id)
     show = Product.objects.get(id=id)
-    return render(request, 'Projet_Final/front/products-type-1.html', {"show": show, "notes" : notes})
+    
+    # Stock par taille
+    stock = {
+        'S': show.tailleS,
+        'M': show.tailleM,
+        'L': show.tailleL,
+        'XL': show.tailleXL,
+    }
+    
+    return render(
+        request,
+        'Projet_Final/front/products-type-1.html',
+        {"show": show, "notes": notes, "stock": stock}
+    )
 
 
 def comment_create(request, id):

@@ -53,12 +53,12 @@ def blog(request):
     # Filtrer les articles en fonction du nom recherché (search_query)
     if search_query:
         articles = articles.filter(title__icontains=search_query)
-
+    
     categories = CategoryArticle.objects.all()
-
+    
     # Récupérer les articles avec le plus de commentaires
     popular_articles = Article.objects.annotate(comment_count=Count('note2')).order_by('-comment_count')[:3]
-
+    
     # Vérifier s'il y a des articles avec des commentaires
     if len(popular_articles) == 0:
         # Récupérer les trois premiers articles

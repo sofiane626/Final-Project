@@ -22,6 +22,17 @@ class Product(models.Model):
     tailleM = models.IntegerField()
     tailleL = models.IntegerField()
     tailleXL = models.IntegerField()
+    def get_stock_for_size(self, size):
+        if size == 'S':
+            return self.tailleS
+        elif size == 'M':
+            return self.tailleM
+        elif size == 'L':
+            return self.tailleL
+        elif size == 'XL':
+            return self.tailleXL
+        else:
+            return 0  # Taille invalide
 
 class Note(models.Model):
     author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)

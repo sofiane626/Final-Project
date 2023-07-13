@@ -5,14 +5,14 @@ from django.utils import timezone
 
 class CategoryArticle(models.Model):
     category = models.CharField(max_length=100)
-
+    
     def __str__(self):
         return self.category
 
 
 class Tag(models.Model):
     tag = models.CharField(max_length=100)
-
+    
     def __str__(self):
         return self.tag
     

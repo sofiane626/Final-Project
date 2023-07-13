@@ -280,36 +280,26 @@
         min_interval: null,
         max_interval: null,
     });
-
+    
+    const plusBtn = document.getElementById("plus-btn");
+    const minusBtn = document.getElementById("minus-btn");
+    const quantityInput = document.getElementById("quantity-input");
     // Input Plus & Minus Number JS
-    $('.input-counter').each(function() {
-        var spinner = jQuery(this),
-        input = spinner.find('input[type="text"]'),
-        btnUp = spinner.find('.plus-btn'),
-        btnDown = spinner.find('.minus-btn'),
-        min = input.attr('min'),
-        max = input.attr('max');
-        
-        btnUp.on('click', function() {
-            var oldValue = parseFloat(input.val());
-            if (oldValue >= max) {
-                var newVal = oldValue;
-            } else {
-                var newVal = oldValue + 1;
-            }
-            spinner.find("input").val(newVal);
-            spinner.find("input").trigger("change");
-        });
-        btnDown.on('click', function() {
-            var oldValue = parseFloat(input.val());
-            if (oldValue <= min) {
-                var newVal = oldValue;
-            } else {
-                var newVal = oldValue - 1;
-            }
-            spinner.find("input").val(newVal);
-            spinner.find("input").trigger("change");
-        });
+    plusBtn.addEventListener("click", () => {
+      const currentQuantity = parseInt(quantityInput.value);
+      const maxQuantity = parseInt(quantityInput.getAttribute("max"));
+
+      if (currentQuantity < maxQuantity) {
+        quantityInput.value = currentQuantity + 1;
+      }
+    });
+
+    minusBtn.addEventListener("click", () => {
+      const currentQuantity = parseInt(quantityInput.value);
+
+      if (currentQuantity > 1) {
+        quantityInput.value = currentQuantity - 1;
+      }
     });
 
     // Testimonials Slides
