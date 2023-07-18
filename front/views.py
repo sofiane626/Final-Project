@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from user.models import User
-from product.models import Product, Category, CartItem
+from product.models import Product, Category, CartItem, Cart
 from blog.models import Article, CategoryArticle
 from contact.models import Contact
 from django.db.models import Count
@@ -12,9 +12,10 @@ def home(request):
     contacts = Contact.objects.all()
     cart_items = CartItem.objects.all()
     products = Product.objects.order_by('-id')[:6]
+    allProducts = Product.objects.all()
     popular_products = Product.objects.annotate(comment_count=Count('note')).order_by('-comment_count')[:6]
     latest_articles = Article.objects.all().order_by('-id')[:3]
-    return render(request, 'Projet_Final/front/home.html', {'contacts' : contacts, 'products': products, "cart_items": cart_items, 'popular_products': popular_products, 'latest_articles': latest_articles})
+    return render(request, 'Projet_Final/front/home.html', {'contacts' : contacts, 'products': products, "cart_items": cart_items, 'popular_products': popular_products, 'latest_articles': latest_articles, 'allProducts' : allProducts})
 
 def product(request, category_id=None):
     products = Product.objects.all()
@@ -68,12 +69,28 @@ def blog(request):
     return render(request, 'Projet_Final/front/blog-5.html', {'articles': articles, 'categories': categories, 'popular_articles': popular_articles})
 
 
-def contact(request):
-    contacts = Contact.objects.all()
-    return render(request, 'Projet_Final/front/contact.html', {'contacts' : contacts})
+
 
 def checkout(request):
-    return render(request, 'Projet_Final/front/checkout.html')
+    cart_items = []
+    total = 0
+    
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        cart_items = cart.cartitem_set.all()
+        
+        for cart_item in cart_items:
+            cart_item.total = cart_item.quantity * cart_item.product.price
+            total += cart_item.total
+    
+    # Récupérez la variable 'show' en fonction de votre logique d'affichage
+    show = Product.objects.get(id=1)  # Remplacez 1 par votre logique de récupération du produit à afficher
+    
+    return render(
+        request,
+        'Projet_Final/front/checkout.html',
+        {"cart_items": cart_items, "total": total, "show": show}
+    )
 
 def backoffice(request):
     users = User.objects.all()
@@ -90,3 +107,25 @@ def back_article(request):
 def back_contact(request):
     contacts = Contact.objects.all()
     return render(request, 'Projet_Final/back/back_contact.html', {'contacts' : contacts})
+
+def cart(request):
+    cart_items = CartItem.objects.all()[:4]
+    total = 0  # Variable pour stocker le total de la commande
+    for item in cart_items:
+        item.total = item.product.price * item.quantity
+        total += item.total  # Accumuler le sous-total à chaque itération
+    allProducts = Product.objects.all()
+    return render(request, 'Projet_Final/front/cart.html', {'allProducts': allProducts, "cart_items": cart_items, "total": total})
+
+def update_wish(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        wish = request.POST.get('wish')
+
+        # Effectuez les modifications nécessaires dans votre base de données Django
+        # par exemple, en utilisant le modèle Product et en mettant à jour l'attribut 'wish' du produit correspondant
+        product = Product.objects.get(id=product_id)
+        product.wish = wish
+        product.save()
+
+    return redirect('home')  # Redirigez l'utilisateur vers la vue souhaitée après la mise à jour

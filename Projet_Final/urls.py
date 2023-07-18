@@ -29,7 +29,7 @@ urlpatterns = [
     path('products/', product, name='product'),  # Vue pour afficher tous les produits
     path('products/<int:category_id>/', product, name='product_category'),  # Vue pour filtrer les produits par catégorie
     path('blog/', blog, name='blog'),
-    path('contact/', contact, name='contact'),
+    path('contact/', contact_mail, name='contact'),
     path('connexion/', connexion, name='login'),
     path('inscription/', inscription, name='signup'),
     path('logout/', deco ),
@@ -52,5 +52,9 @@ urlpatterns = [
     path('back_contact/', back_contact, name='back_contact'),
     path('comment/create2/<int:id>/', comment_create2, name='comment_create2'),
     path('article/<int:id>', readArticle, name='detail_article'),
-    path('cart/', login_required(cart_view), name='cart'),
+    path('cart/', cart, name='cart'),
+    path('update_wish/', update_wish, name='update_wish'),
+    path('mailbox/', mailbox, name='mailbox'),
+    path('mailbox/mark_as_read/<int:mail_id>/', mark_as_read, name='mark_as_read'),
+    path('contact_mail/destroy/<int:id>', destroyContact_mail),
 ]

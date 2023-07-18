@@ -19,6 +19,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     price = models.PositiveIntegerField()
     promo = models.PositiveIntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])
+    wish = models.BooleanField(default=False)
     stock = models.IntegerField(default=0)
     def get_stock(self):
         return self.stock
