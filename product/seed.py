@@ -30,10 +30,8 @@ def runProduct():
             'category': Category.objects.all()[0],
             'price': 26,
             'promo': 22,
-            'tailleS':2,
-            'tailleM':2,
-            'tailleL':2,
-            'tailleXL':2,
+            'stock':2,
+        
         },
         {
             'img1': 'https://static.zara.net/photos///2023/I/0/2/p/3277/306/800/2/w/750/3277306800_6_1_1.jpg?ts=1685354035104', 
@@ -44,10 +42,8 @@ def runProduct():
             'category': Category.objects.all()[0],
             'price': 46,
             'promo': 0,
-            'tailleS':4,
-            'tailleM':8,
-            'tailleL':6,
-            'tailleXL':1,
+            'stock':4,
+
         },
         {
             'img1': 'https://static.zara.net/photos///2023/I/0/2/p/0794/308/800/2/w/750/0794308800_6_1_1.jpg?ts=1686757099200', 
@@ -58,10 +54,8 @@ def runProduct():
             'category': Category.objects.all()[0],
             'price': 75,
             'promo': 0,
-            'tailleS':5,
-            'tailleM':2,
-            'tailleL':1,
-            'tailleXL':1,
+            'stock':5,
+
         },
         {
             'img1': 'https://static.zara.net/photos///2023/I/0/2/p/4087/480/055/2/w/750/4087480055_6_1_1.jpg?ts=1687859877632', 
@@ -72,10 +66,8 @@ def runProduct():
             'category': Category.objects.all()[1],
             'price': 100,
             'promo': 0,
-            'tailleS':3,
-            'tailleM':3,
-            'tailleL':3,
-            'tailleXL':3,
+            'stock':3,
+
         },
         {
             'img1': 'https://static.zara.net/photos///2023/I/0/2/p/4442/350/615/2/w/750/4442350615_6_1_1.jpg?ts=1688110922254', 
@@ -86,10 +78,8 @@ def runProduct():
             'category': Category.objects.all()[1],
             'price': 10,
             'promo': 0,
-            'tailleS':4,
-            'tailleM':3,
-            'tailleL':10,
-            'tailleXL':3,
+            'stock':4,
+
         },
         {
             'img1': 'https://static.zara.net/photos///2023/I/0/2/p/4087/461/500/2/w/750/4087461500_6_1_1.jpg?ts=1686910790855', 
@@ -100,10 +90,8 @@ def runProduct():
             'category': Category.objects.all()[1],
             'price': 40,
             'promo': 0,
-            'tailleS':4,
-            'tailleM':30,
-            'tailleL':10,
-            'tailleXL':3,
+            'stock':4,
+
         },
         {
             'img1': 'https://static.zara.net/photos///2023/V/0/2/p/4302/402/431/2/w/750/4302402431_6_1_1.jpg?ts=1671705771650', 
@@ -114,10 +102,8 @@ def runProduct():
             'category': Category.objects.all()[2],
             'price': 300,
             'promo': 0,
-            'tailleS':4,
-            'tailleM':3,
-            'tailleL':16,
-            'tailleXL':1,
+            'stock':4,
+
         },
         {
             'img1': 'https://static.zara.net/photos///2022/I/0/2/p/3046/411/800/2/w/750/3046411800_6_1_1.jpg?ts=1666259420900', 
@@ -128,10 +114,8 @@ def runProduct():
             'category': Category.objects.all()[2],
             'price': 350,
             'promo': 0,
-            'tailleS':10,
-            'tailleM':4,
-            'tailleL':6,
-            'tailleXL':1,
+            'stock':10,
+
         },
         {
             'img1': 'https://static.zara.net/photos///2023/V/0/2/p/0706/506/802/2/w/750/0706506802_6_1_1.jpg?ts=1684232563523', 
@@ -142,10 +126,8 @@ def runProduct():
             'category': Category.objects.all()[2],
             'price': 250,
             'promo': 0,
-            'tailleS':10,
-            'tailleM':4,
-            'tailleL':6,
-            'tailleXL':5,
+            'stock':10,
+
         },
         {
             'img1': 'https://static.zara.net/photos///2023/I/0/2/p/0761/350/800/2/w/750/0761350800_6_1_1.jpg?ts=1688110917303', 
@@ -156,10 +138,8 @@ def runProduct():
             'category': Category.objects.all()[3],
             'price': 50,
             'promo': 0,
-            'tailleS':10,
-            'tailleM':2,
-            'tailleL':6,
-            'tailleXL':5,
+            'stock':10,
+            
         },
         {
             'img1': 'https://static.zara.net/photos///2023/I/0/2/p/0761/350/807/2/w/750/0761350807_6_1_1.jpg?ts=1688039025314', 
@@ -170,10 +150,8 @@ def runProduct():
             'category': Category.objects.all()[3],
             'price': 50,
             'promo': 0,
-            'tailleS':10,
-            'tailleM':2,
-            'tailleL':6,
-            'tailleXL':5,
+            'stock':8,
+            
         },
         {
             'img1': 'https://static.zara.net/photos///2023/V/0/2/p/2795/420/615/2/w/750/2795420615_6_1_1.jpg?ts=1679917968550', 
@@ -184,10 +162,8 @@ def runProduct():
             'category': Category.objects.all()[3],
             'price': 50,
             'promo': 0,
-            'tailleS':1,
-            'tailleM':2,
-            'tailleL':6,
-            'tailleXL':5,
+            'stock':4,
+            
         },
         {
             'img1': 'https://static.zara.net/photos///2022/V/0/2/p/1564/414/401/2/w/750/1564414401_6_1_1.jpg?ts=1643706451463', 
@@ -198,10 +174,8 @@ def runProduct():
             'category': Category.objects.all()[4],
             'price': 70,
             'promo': 0,
-            'tailleS':1,
-            'tailleM':2,
-            'tailleL':6,
-            'tailleXL':5,
+            'stock':6,
+            
         },
         {
             'img1': 'https://static.zara.net/photos///2023/V/0/2/p/6216/409/700/2/w/750/6216409700_6_1_1.jpg?ts=1679314589493', 
@@ -212,10 +186,8 @@ def runProduct():
             'category': Category.objects.all()[4],
             'price': 20,
             'promo': 0,
-            'tailleS':1,
-            'tailleM':2,
-            'tailleL':6,
-            'tailleXL':5,
+            'stock':3,
+            
         },
         {
             'img1': 'https://static.zara.net/photos///2023/V/0/2/p/4358/689/052/2/w/750/4358689052_6_1_1.jpg?ts=1676032622994', 
@@ -226,10 +198,8 @@ def runProduct():
             'category': Category.objects.all()[4],
             'price': 10,
             'promo': 0,
-            'tailleS':1,
-            'tailleM':2,
-            'tailleL':6,
-            'tailleXL':5,
+            'stock':4,
+            
         },
     ]
     

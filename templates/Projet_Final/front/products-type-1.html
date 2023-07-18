@@ -58,32 +58,25 @@
                             </div>
                             
                             <ul class="products-info">
-                                <li><span>Availability:</span> <a href="#">In stock (<span id="stock"></span> items)</a></li>
+                                <li><span>Availability:</span> <a href="#">In stock (<span id="stock" data-stock="{{ show.stock }}"></span> items)</a></li>
                                 <li><span>Products Type:</span> <a href="#">T-Shirt</a></li>
                             </ul>
                             
-                            <div class="products-size-wrapper">
-                                <span>Size:</span>
-                                <ul>
-                                    <li class="size-option" data-size="S" data-stock="{{ stock.S }}"><a href="#">S</a></li>
-                                    <li class="size-option" data-size="M" data-stock="{{ stock.M }}"><a href="#">M</a></li>
-                                    <li class="size-option" data-size="L" data-stock="{{ stock.L }}"><a href="#">L</a></li>
-                                    <li class="size-option" data-size="XL" data-stock="{{ stock.XL }}"><a href="#">XL</a></li>
-                                </ul>
-                            </div>
-                            
-                            <div class="products-info-btn">
-                                <a href={% url 'contact' %}><i class='bx bx-envelope'></i> Ask about this products</a>
-                            </div>
-                            
-                            <div class="products-add-to-cart">
-                                <div class="input-counter">
-                                    <span class="minus-btn" id="minus-btn"><i class='bx bx-minus'></i></span>
-                                    <input type="text" id="quantity-input" value="1">
-                                    <span class="plus-btn" id="plus-btn"><i class='bx bx-plus'></i></span>
-                                </div>
-                                <button type="submit" class="default-btn"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                            </div>
+                            <form method="post" action="{% url 'detail_Product' show.id %}">
+                                {% csrf_token %}
+                                {% if show.stock > 0 %}
+                                    <div class="products-add-to-cart">
+                                        <div class="input-counter">
+                                            <span class="minus-btn" id="minus-btn"><i class='bx bx-minus'></i></span>
+                                            <input type="text" id="quantity-input" name="quantity" value="1" max="{{ show.stock }}" readonly>
+                                            <span class="plus-btn" id="plus-btn"><i class='bx bx-plus'></i></span>
+                                        </div>
+                                        <button type="submit" class="default-btn"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                                    </div>
+                                {% else %}
+                                    <p style="font-size: 28px; color: red;">Out of stock</p>
+                                {% endif %}
+                            </form>
                             
                             <div class="wishlist-compare-btn">
                                 <a href="#" class="optional-btn"><i class='bx bx-heart'></i> Add to Wishlist</a>
@@ -109,42 +102,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    // Récupérer toutes les options de taille
-                    var sizeOptions = document.getElementsByClassName("size-option");
-                    
-                    // Récupérer le champ du stock
-                    var stockField = document.getElementById("stock");
-
-                    // Gérer le clic sur les options de taille
-                    for (var i = 0; i < sizeOptions.length; i++) {
-                        sizeOptions[i].addEventListener("click", function(e) {
-                            e.preventDefault();
-
-                            // Retirer la classe "active" de toutes les options de taille
-                            for (var j = 0; j < sizeOptions.length; j++) {
-                                sizeOptions[j].classList.remove("active");
-                            }
-
-                            // Ajouter la classe "active" à l'option de taille sélectionnée
-                            this.classList.add("active");
-
-                            // Récupérer la valeur de la taille sélectionnée
-                            var selectedSize = this.getAttribute("data-size");
-                            
-                            // Récupérer le stock pour la taille sélectionnée depuis l'attribut "data-stock"
-                            var stock = this.getAttribute("data-stock");
-                            var quantite_input = document.getElementById('quantity-input')
-                            quantite_input.setAttribute('value', 1)
-                            quantite_input.setAttribute('max', stock)
-                            // Mettre à jour le champ du stock avec la valeur récupérée
-                            stockField.textContent = stock;
-                        });
-                    }
-                });
-                </script>
 
                 <div class="tab products-details-tab">
                     <ul class="tabs">
@@ -801,7 +758,7 @@
                                     <li><span>Availability:</span> <a href="#">In stock (7 items)</a></li>
                                     <li><span>Products Type:</span> <a href="#">T-Shirt</a></li>
                                 </ul>
-
+                                
                                 <div class="products-color-switch">
                                     <h4>Color:</h4>
 
@@ -825,17 +782,17 @@
                                         <li><a href="#">XXL</a></li>
                                     </ul>
                                 </div>
-
+                                
                                 <div class="products-add-to-cart">
                                     <div class="input-counter">
                                         <span class="minus-btn"><i class='bx bx-minus'></i></span>
                                         <input type="text" value="1">
                                         <span class="plus-btn"><i class='bx bx-plus'></i></span>
                                     </div>
-
+                                    
                                     <button type="submit" class="default-btn">Add to Cart</button>
                                 </div>
-
+                                
                                 <a href="#" class="view-full-info">View Full Info</a>
                             </div>
                         </div>
@@ -844,7 +801,7 @@
             </div>
         </div>
         <!-- End QuickView Modal Area -->
-
+        
         <!-- Start Shopping Cart Modal -->
         <div class="modal right fade shoppingCartModal" id="shoppingCartModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
@@ -852,76 +809,52 @@
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><i class='bx bx-x'></i></span>
                     </button>
-
+                    
                     <div class="modal-body">
-                        <h3>My Cart (3)</h3>
-
+                        <h3>My Cart ()</h3>
+                        
                         <div class="products-cart-content">
-                            <div class="products-cart">
-                                <div class="products-image">
-                                    <a href="#"><img src={% static "assets/img/products/img1.jpg" %} alt="image"></a>
+                            
+                            {% if cart_items %}
+                                <div class="products-cart-content">
+                                    {% for cart_item in cart_items %}
+                                        <!-- Afficher les détails de chaque élément du panier -->
+                                        <div class="products-cart">
+                                            <div class="products-image">
+                                                <a href="#"><img src="{{ cart_item.product.img1 }}" alt="image"></a>
+                                            </div>
+                                            <div class="products-content">
+                                                <h3><a href="#">{{ cart_item.product.name }}</a></h3>
+                                                <span>{{ cart_item.size }}</span>
+                                                <div class="products-price">
+                                                    <span>{{ cart_item.quantity }}</span>
+                                                    <span>x</span>
+                                                    <span class="price">${{ cart_item.product.price }}</span>
+                                                </div>
+                                                <form method="post" action="{% url 'detail_Product' show.id %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="remove_item" value="{{ cart_item.id }}">
+                                                    <button type="submit" class="remove-btn"><i class='bx bx-trash'></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
                                 </div>
-
-                                <div class="products-content">
-                                    <h3><a href="#">Long Sleeve Leopard T-Shirt</a></h3>
-                                    <span>Blue / XS</span>
-                                    <div class="products-price">
-                                        <span>1</span>
-                                        <span>x</span>
-                                        <span class="price">$250.00</span>
-                                    </div>
-                                    <a href="#" class="remove-btn"><i class='bx bx-trash'></i></a>
-                                </div>
+                            {% else %}
+                                <p>Your cart is empty. Please add items to your cart.</p>
+                            {% endif %}
+                            <div class="products-cart-subtotal">
+                                <span>Subtotal</span>
+                                <span class="subtotal">${{ total }}</span>
                             </div>
-
-                            <div class="products-cart">
-                                <div class="products-image">
-                                    <a href="#"><img src={% static "assets/img/products/img2.jpg" %} alt="image"></a>
-                                </div>
-
-                                <div class="products-content">
-                                    <h3><a href="#">Causal V-Neck Soft Raglan</a></h3>
-                                    <span>Blue / XS</span>
-                                    <div class="products-price">
-                                        <span>1</span>
-                                        <span>x</span>
-                                        <span class="price">$200.00</span>
-                                    </div>
-                                    <a href="#" class="remove-btn"><i class='bx bx-trash'></i></a>
-                                </div>
+                            <div class="products-cart-btn">
+                                {% if not user.is_authenticated %}
+                                <a href=""></a>
+                                {% else %}
+                                <a href={% url 'checkout' %} class="default-btn">Proceed to Checkout</a>
+                                <a href="#" class="optional-btn">View Shopping Cart</a>
+                                {% endif %}
                             </div>
-
-                            <div class="products-cart">
-                                <div class="products-image">
-                                    <a href="#"><img src={% static "assets/img/products/img3.jpg" %} alt="image"></a>
-                                </div>
-
-                                <div class="products-content">
-                                    <h3><a href="#">Hanes Men's Pullover</a></h3>
-                                    <span>Blue / XS</span>
-                                    <div class="products-price">
-                                        <span>1</span>
-                                        <span>x</span>
-                                        <span class="price">$200.00</span>
-                                    </div>
-                                    <a href="#" class="remove-btn"><i class='bx bx-trash'></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="products-cart-subtotal">
-                            <span>Subtotal</span>
-
-                            <span class="subtotal">$524.00</span>
-                        </div>
-
-                        <div class="products-cart-btn">
-                            {% if not user.is_authenticated %}
-          <a href=""></a>
-          {% else %}
-          <a href={% url 'checkout' %} class="default-btn">Proceed to Checkout</a>
-          <a href="#" class="optional-btn">View Shopping Cart</a>
-          {% endif %}
                         </div>
                     </div>
                 </div>

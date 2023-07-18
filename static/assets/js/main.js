@@ -272,7 +272,7 @@
             }
         }
     });
-
+    
     // Price Range Slider JS
     $(".js-range-of-price").ionRangeSlider({
         type: "double",
@@ -284,23 +284,29 @@
     const plusBtn = document.getElementById("plus-btn");
     const minusBtn = document.getElementById("minus-btn");
     const quantityInput = document.getElementById("quantity-input");
-    // Input Plus & Minus Number JS
+    const maxQuantity = parseInt(quantityInput.getAttribute("max"));
+    
     plusBtn.addEventListener("click", () => {
       const currentQuantity = parseInt(quantityInput.value);
-      const maxQuantity = parseInt(quantityInput.getAttribute("max"));
-
+      
       if (currentQuantity < maxQuantity) {
         quantityInput.value = currentQuantity + 1;
       }
     });
-
+    
     minusBtn.addEventListener("click", () => {
       const currentQuantity = parseInt(quantityInput.value);
-
+      
       if (currentQuantity > 1) {
         quantityInput.value = currentQuantity - 1;
       }
     });
+    
+    const stockElement = document.getElementById("stock");
+    if (stockElement) {
+      const stock = stockElement.getAttribute("data-stock");
+      stockElement.innerText = stock;
+    }
 
     // Testimonials Slides
     $('.testimonials-slides').owlCarousel({

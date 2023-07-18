@@ -21,6 +21,7 @@ from user.views import *
 from product.views import *
 from blog.views import *
 from contact.views import *
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,7 +41,7 @@ urlpatterns = [
     path('product/edit/<int:id>', updateProduct),
     path('product/destroy/<int:id>', destroy_Product),
     path('create/product/', createProduct, name='create_Product'),
-    path('product/<int:id>', readProduct, name='detail_Product'),
+    path('product/<int:id>/', readProduct, name='detail_Product'),
     path('back_article/', back_article, name='back_article'),
     path('article/edit/<int:id>', updateArticle),
     path('article/destroy/<int:id>', destroy_Article),
@@ -51,4 +52,5 @@ urlpatterns = [
     path('back_contact/', back_contact, name='back_contact'),
     path('comment/create2/<int:id>/', comment_create2, name='comment_create2'),
     path('article/<int:id>', readArticle, name='detail_article'),
+    path('cart/', login_required(cart_view), name='cart'),
 ]

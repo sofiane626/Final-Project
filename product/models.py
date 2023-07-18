@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from user.models import User
+from django.utils import timezone
 
 class Category(models.Model):
     value = models.CharField(max_length=50, unique=True)
@@ -18,21 +19,9 @@ class Product(models.Model):
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     price = models.PositiveIntegerField()
     promo = models.PositiveIntegerField(validators=[MaxValueValidator(100), MinValueValidator(0)])
-    tailleS = models.IntegerField()
-    tailleM = models.IntegerField()
-    tailleL = models.IntegerField()
-    tailleXL = models.IntegerField()
-    def get_stock_for_size(self, size):
-        if size == 'S':
-            return self.tailleS
-        elif size == 'M':
-            return self.tailleM
-        elif size == 'L':
-            return self.tailleL
-        elif size == 'XL':
-            return self.tailleXL
-        else:
-            return 0  # Taille invalide
+    stock = models.IntegerField(default=0)
+    def get_stock(self):
+        return self.stock
 
 class Note(models.Model):
     author = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
@@ -48,12 +37,35 @@ class AnonymousUser(models.Model):
 
 
 
-class Order(models.Model):
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    # entre progress / noValidate / validate
-    status = models.CharField(max_length=50)
+class Cart(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Product, through='CartItem')
+    
+    def __str__(self):
+        return f"Cart for {self.user.username}"
 
-class Achat(models.Model):
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    size = models.CharField(max_length=2, null=True, blank=True)
+    quantity = models.PositiveIntegerField(default=1)
+    
+    def restore_stock(self):
+        self.product.stock += self.quantity
+        self.product.save()
+
+class Order(models.Model):
+    STATUS_CHOICES = (
+        ('novalidate', 'Non validée'),
+        ('validate', 'Validée'),
+        ('progress', 'En cours de traitement'),
+    )
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE, default=None)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='novalidate')
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Order #{self.id} - {self.user.username}"

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from user.models import User
-from product.models import Product, Category
+from product.models import Product, Category, CartItem
 from blog.models import Article, CategoryArticle
 from contact.models import Contact
 from django.db.models import Count
@@ -10,10 +10,11 @@ from django.core.paginator import Paginator
 
 def home(request):
     contacts = Contact.objects.all()
+    cart_items = CartItem.objects.all()
     products = Product.objects.order_by('-id')[:6]
     popular_products = Product.objects.annotate(comment_count=Count('note')).order_by('-comment_count')[:6]
     latest_articles = Article.objects.all().order_by('-id')[:3]
-    return render(request, 'Projet_Final/front/home.html', {'contacts' : contacts, 'products': products, 'popular_products': popular_products, 'latest_articles': latest_articles})
+    return render(request, 'Projet_Final/front/home.html', {'contacts' : contacts, 'products': products, "cart_items": cart_items, 'popular_products': popular_products, 'latest_articles': latest_articles})
 
 def product(request, category_id=None):
     products = Product.objects.all()
